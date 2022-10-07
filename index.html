@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="twitter:image" content="https://parzibyte.me/blog/wp-content/uploads/2018/12/App-para-calcular-factorial-en-l%C3%ADnea.png" />
+    <meta name="twitter:description" content="Cálculo del factorial online. Calcular n! de números grandes en línea, factorial de un número" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="description" content="Cálculo del factorial online. Calcular n! de números grandes en línea, factorial de un número">
+    <meta property="og:image" content="https://parzibyte.me/blog/wp-content/uploads/2018/12/App-para-calcular-factorial-en-l%C3%ADnea.png" />
+    <meta property="og:locale" content="es_LA" />
+    <meta property="og:url" content="https://parzibyte.me/apps/factorial" />
+    <meta property="og:site_name" content="Parzibyte.me" />
+    <meta property="og:title" content="Calcular factorial de un número online" />
+    <meta property="og:description" content='Cálculo del factorial online. Calcular n! de números grandes en línea, factorial de un número' />
+    <title>Calcular factorial de un número online</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.min.js"></script>
+    <link rel="manifest" href="./manifest.json">
+    <script type="text/javascript">
+        if ("serviceworker" in navigator) {
+            navigator.serviceWorker.register("sw.js")
+        }
+        </script>
+</head>
+
+<body>
+    <section class="section" id="app">
+        <div class="container">
+            <div class="columns">
+                <div class="column">
+                    <h1 class="is-size-1 has-text-centered">Cálculo del factorial de un número</h1>
+                    <p>El <strong>factorial</strong> de un entero positivo n, el factorial de n o n factorial se define
+                        en principio
+                        como el producto de
+                        todos los números enteros positivos desde 1 (es decir, los números naturales) hasta n.
+                        <br>
+                        Fuente: <a href="https://es.wikipedia.org/wiki/Factorial" target="_blank">Wikipedia</a>
+                    </p>
+                </div>
+            </div>
+            <div class="columns">
+                <div class="column">
+                    <div class="field">
+                        <p class="control has-icons-left" :class="{'is-loading': cargando}">
+                            <input ref="input" @keyup.enter="calcularFactorial" :readonly="cargando" v-model="numero"
+                                class="input" type="number" placeholder="Escribe el número y presiona Enter">
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-exclamation"></i>
+                            </span>
+                        </p>
+                    </div>
+                    <div class="field">
+                        <p class="control">
+                            <button @click="calcularFactorial" class="button is-success" :class="{'is-loading': cargando}">
+                                Calcular
+                            </button>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div v-show="factorial" class="columns">
+                <div class="column">
+                    <div class="notification is-success">
+                        <button @click="copiarAlPortapapeles(factorial)" class="copiar button">
+                            <span v-show="!mostrarCopiado" class="icon">
+                                <i class="far fa-copy"></i>
+                            </span>
+                            <p v-show="mostrarCopiado" class="is-size-7">Copiado</p>
+                        </button>
+                        El factorial de <strong>{{numero}}</strong> es <strong class="factorial">{{factorial}}</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+        <div class="content has-text-centered">
+            <p>
+                <strong>Calculadora de factorial online</strong> creada por <a href="https://parzibyte.me/blog" target="_blank">Parzibyte</a>.
+                Visita el
+                <a href="https://github.com/parzibyte/factorial-js" target="_blank">repositorio en GitHub</a>.
+                <br>
+                <strong>Más herramientas</strong><br>
+                <a href="https://www.parzibyte.me/apps/conversor_bases/" target="_blank">Conversor binario, octal,
+                    decimal y hexadecimal</a><br>
+                <a href="https://www.parzibyte.me/apps/conversion-hexadecimal-decimal" target="_blank">Explicar
+                    conversión hexadecimal a decimal</a>
+                <br>
+                Sígueme:
+
+                <a href="https://twitter.com/parzibyte" target="_blank">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="https://facebook.com/parzibyte.fanpage" target="_blank">
+                    <i class="fab fa-facebook-square"></i>
+                </a>
+                <a href="https://github.com/parzibyte" target="_blank">
+                    <i class="fab fa-github"></i>
+                </a>
+            </p>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+</body>
+
+</html>
